@@ -1,0 +1,4 @@
+# startId   length(cm)   targetR(cm)   [startR(cm)]
+    980         2            0.40          0.05
+    1023        3            0.30          0.05
+    745         1.5          0.20          0.04

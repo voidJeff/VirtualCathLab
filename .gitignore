@@ -1,0 +1,8 @@
+# ignore all .vtp files
+*.vtp
+# ignore all .vtp files in the deployed_surface_snapshots directory
+**/*.
+
+plot_centerline_metrics.ipynb
+plot_centerline_metrics.py
+v2n_test.py
