@@ -1,6 +1,4 @@
 # VirtualCathLab – Stent‑deployment utilities for vascular meshes with centerlines
-This repo hosts the source code for the real-time, interactive virtual stent deployment project, created by Bohan Jeff Li.
-
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue)](#license)
 [![made with VTK](https://img.shields.io/badge/made%20with-VTK-398593)](https://vtk.org)
 [![python 3.9](https://img.shields.io/badge/python-3.9-blue)](https://www.python.org/downloads/release/python-3913/)
