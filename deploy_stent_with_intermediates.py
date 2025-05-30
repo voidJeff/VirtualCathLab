@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""deploy_stent.py
+"""deploy_stent_with_intermediates.py
 ---------------------------------------------------------------
 Command‑line tool that deploys a crimped stent inside a vascular
 surface mesh until the stent radius reaches – but never exceeds –
@@ -14,7 +14,7 @@ this exactly matches your requirement "stop once this would overshoot".)
 
 Usage
 -----
-python deploy_stent.py \
+python deploy_stent_with_intermediates.py \
        --mesh   aneurysm_surface.vtp  \
        --cline  aneurysm_centerline.vtp  \
        --start   123                  # centre‑line point id of the distal tip of stent
@@ -23,6 +23,7 @@ optional flags  (see `-h` for the full list):
   --target‑R    0.40   # [cm] desired deployed stent radius
   --start‑R     0.05   # [cm] crimped radius (defaults to 0.05)
   --length      3.0    # [cm] stent length along centre‑line
+  --save-step 0.1      # [cm] write snapshots every x cm increase in radius
   --out‑mesh    deployed_surface.vtp
   --out‑cl      deployed_centerline.vtp
 """
@@ -548,7 +549,7 @@ def main():
     ap.add_argument('--start-R',  type=float, default=0.05, help='initial crimped stent radius [cm]')
     ap.add_argument('--length',   type=float, default=3.0,  help='stent length along centre‑line [cm]')
     ap.add_argument('--save-step', type=float, default=0.1,
-                   help='write snapshots every N cm increase in radius')
+                   help='write snapshots every x cm increase in radius')
     ap.add_argument('--out-mesh', default='deployed_surface.vtp', help='output surface mesh')
     ap.add_argument('--out-cl',   default='deployed_centerline.vtp', help='output center‑line (same topology, displaced verts)')
     args = ap.parse_args()
@@ -594,7 +595,7 @@ def main():
     next_ms_idx = 0  # index into milestones
 
     # Create snapshot directory
-    snapshot_dir = pathlib.Path(f"{pathlib.Path(args.out_mesh).with_suffix('')}_snapshots")
+    snapshot_dir = pathlib.Path(f"{pathlib.Path(args.out_mesh).with_suffix('')}_intermediates")
     snapshot_dir.mkdir(parents=True, exist_ok=True)
     mesh_prefix = snapshot_dir / pathlib.Path(args.out_mesh).with_suffix('')
     cl_prefix   = snapshot_dir / pathlib.Path(args.out_cl).with_suffix('')
@@ -628,12 +629,11 @@ def main():
             next_ms_idx += 1
 
     # ---------------------------------------------------------------------
-    # mesh_pd.GetPoints().Modified()
     print(f"Total stent deployment time: {time.time() - total_start_time:.4f} seconds")
     mesh_pd.GetPoints().Modified()
     cl_pd.GetPoints().Modified()
     
-    write_vtp(mesh_pd, "deployed_surface_0_point_15.vtp")
+    write_vtp(mesh_pd, "args.out_mesh")
     write_vtp(cl_pd,   args.out_cl)
     print(f"Saved:\n  surface  → {args.out_mesh}\n  center‑line → {args.out_cl}")
 

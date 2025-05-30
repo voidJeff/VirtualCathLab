@@ -17,9 +17,9 @@ Kelvinlet SDF‑contact pushes.  For each stent we keep incrementing the stent
 radius until the next increment would overshoot the prescribed *target*
 radius – then we stop **without** applying that last step.
 
-Single‑stent usage (identical to previous version)
+Single‑stent mode (identical to previous version)
 -----
-python deploy_stent.py  \
+python deploy_stent_batch.py  \
        --mesh   input_surface_mesh.vtp  \
        --cline  input_centerline.vtp  \
        --start   123                  # centre‑line point id of the distal tip of stent
@@ -32,12 +32,12 @@ optional flags  (see `-h` for the full list):
   --out‑cl      deployed_centerline.vtp
 
 Example:
-python deploy_stent.py --mesh surf.vtp --cline cl.vtp \
+python deploy_stent_batch.py --mesh surf.vtp --cline cl.vtp \
                        --start 980 --length 3.0 --target-R 0.8
 
 Batch mode
 ----------
-python deploy_stent.py --mesh surf.vtp --cline cl.vtp --batch stents.txt
+python deploy_stent_batch.py --mesh surf.vtp --cline cl.vtp --batch stents.txt
 
 `stents.txt` (whitespace **or** comma separated), one line per stent::
 
@@ -634,7 +634,7 @@ def main():
     base_snap   = pathlib.Path(args.out_mesh).with_suffix('').name
     start_time  = time.time()
 
-    snapshot_dir = pathlib.Path(f"{base_snap}_intermediate_stents")
+    snapshot_dir = pathlib.Path(f"{base_snap}_prefix_subsets")
     snapshot_dir.mkdir(parents=True, exist_ok=True)
     mesh_prefix = snapshot_dir / pathlib.Path(args.out_mesh).with_suffix('')
     cl_prefix   = snapshot_dir / pathlib.Path(args.out_cl).with_suffix('')

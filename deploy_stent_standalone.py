@@ -14,7 +14,7 @@ this exactly matches your requirement "stop once this would overshoot".)
 
 Usage
 -----
-python deploy_stent.py \
+python deploy_stent_standalone.py \
        --mesh   aneurysm_surface.vtp  \
        --cline  aneurysm_centerline.vtp  \
        --start   123                  # centre‑line point id of the distal tip of stent
