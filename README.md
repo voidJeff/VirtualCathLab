@@ -11,12 +11,12 @@ surface deformation and associated analysis utilities
 
 ---
 
-## Quick install (Apple‑silicon Mac **M‑series**)
+## Quick install (Mac with **Apple‑silicon**)
 
 > **micromamba** is recommended for Mac with M-series chip as it is very fast, lightweight, and
 > coexists happily with Homebrew and system Python.
 
-### 1. Install **micromamba**
+### 1. Install **micromamba** on Mac with Apple-silicon
 
 ```bash
 # Home in your $HOME/.local, no sudo needed
@@ -72,8 +72,8 @@ ready.
 | Path / script                         | Purpose                                                                                                                         |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | deploy_stent_standalone.py                      | Deploy one stent until target radius (no overshoot).                                                                             |
-| deploy_stent_with_partial_dilations.py                      | Same as above but stores a .vtp mesh at every 0.1 cm radius increment.                                                                             |
-| deploy_stents.py                | Read multiple stent specifications from a plaintext file and deploy them sequentially (optionally saving intermediates); final meshes/centre‑lines written once all stents are placed. |
+| deploy_stent_with_intermediates.py                      | Same as above but stores a .vtp mesh at every 0.1 cm radius increment.                                                                             |
+| deploy_stent_batch.py                | Read multiple stent specifications from a plaintext file and deploy them sequentially (optionally saving intermediates); final meshes/centre‑lines written once all stents are placed. |
 | installation-test.py                 | Simple Qt + VTK sanity check used above.                                                                                         |
 
 
@@ -85,19 +85,33 @@ Remember to always activate the environment first
 micromamba activate virtualcathlab
 ```
 
-Single‑stent deployment
+Single‑stent deployment:
 ```
 python deploy_stent_standalone.py \
        --mesh input_surface.vtp \
        --cline input_centerline.vtp \
-       --start 123 \
-       --length 3.0 \
+       --start 765 \
        --target-R 0.4 \
+       --start-R 0.05 \
+       --length 3.0 \
        --out-mesh deployed_surface.vtp
 ```
-Batch deployment
+Single-stent deployment with partially stented intermediate results (saved under folder ``deployed_surface_intermediates``):
+```
+python deploy_stent_with_intermediates.py \
+       --mesh input_surface.vtp \
+       --cline input_centerline.vtp \
+       --start 765 \
+       --target-R 0.4 \
+       --start-R 0.05 \
+       --length 3.0 \
+       --save-step 0.1 \
+       --out-mesh deployed_surface.vtp
+```
 
-Create a text file, for instance, put the following content into a file named example_batch_stents.txt
+Batch deployment:
+
+Create a text file, for instance, put the following content into a file named ``example_batch_stents.txt``
 ```
 # start_id  length(cm)  target_R(cm)
 1000        2.0         0.80
@@ -106,14 +120,13 @@ Create a text file, for instance, put the following content into a file named ex
 ```
 Then run the following
 ```
-python deploy_stents.py \
+python deploy_stent_batch.py \
     --mesh   input_surface.vtp \
     --cline  input_centerline.vtp \
     --batch example_batch_stents.txt # each line is start_id,length,target_R \
-    --save-step 0              # 0 = no snapshots (default)           \
-    --out-mesh deployed_surface.vtp \
-    --out-cl   deployed_centerline.vtp 
+    --out-mesh deployed_surface.vtp
 ```
+Note: results from stenting only the prefix subset of the input batch are also saved under the folder ``deployed_surface_prefix_subsets``.
 
 ⸻
 
