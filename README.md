@@ -46,6 +46,7 @@ First initialize micromamba in the shell before first use:
 eval "$(micromamba shell hook --shell zsh)"
 ```
 
+Next, activate the environment and pip install the rest of the required packages:
 ```
 micromamba activate virtualcathlab
 pip install --upgrade pip
