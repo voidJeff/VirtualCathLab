@@ -62,13 +62,19 @@ python installation_test.py
 
 Expected output:
 ```
-PyQt6 version: 6.7.0
-Qt version   : 6.7.0
-VTK version  : 9.3.0
+Python version: 3.9.19 | packaged by conda-forge | (main, Mar 20 2024, 12:55:20) 
+[Clang 16.0.6 ]
+NumPy version : 1.24.4
+SciPy version : 1.10.1
+JAX version   : 0.4.30
+PyQt6 version : 6.7.0
+Qt version    : 6.7.1
+VTK version   : 9.3.0
 ```
-If the versions match and no segmentation fault occurs, the environment is
-ready.
-
+If the versions match, the environment is
+ready. 
+Note: it is also expected to see a block of warning first about objc[32187]: Class QT_ROOT_LEVEL_POOL__THESE_OBJECTS_WILL_BE_RELEASED_WHEN_QAPP_GOES_OUT_OF_SCOPE, this does not affect usage)
+ 
 ⸻
 
 ## Repository layout
