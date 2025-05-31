@@ -84,7 +84,7 @@ Note: it is also expected to see a block of warning first about objc[32187]: Cla
 | deploy_stent_standalone.py                      | Deploy one stent until target radius (no overshoot).                                                                             |
 | deploy_stent_with_intermediates.py                      | Same as above but stores a .vtp mesh at every 0.1 cm radius increment.                                                                             |
 | deploy_stent_batch.py                | Read multiple stent specifications from a plaintext file and deploy them sequentially (optionally saving intermediates); final meshes/centre‑lines written once all stents are placed. |
-| installation-test.py                 | Simple Qt + VTK sanity check used above.                                                                                         |
+| installation_test.py                 | Simple Qt + VTK sanity check used above.                                                                                         |
 
 
 ⸻
