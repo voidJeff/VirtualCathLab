@@ -41,6 +41,11 @@ micromamba create -y -n virtualcathlab \
 
 ### 3. Activate + add pip‑only packages
 
+First initialize micromamba in the shell before first use:
+```
+eval "$(micromamba shell hook --shell zsh)"
+```
+
 ```
 micromamba activate virtualcathlab
 pip install --upgrade pip
