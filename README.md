@@ -57,7 +57,7 @@ pip install pyqt6==6.7
 ### 4. Verify the environment is correct
 
 ```
-python installation-test.py
+python installation_test.py
 ```
 
 Expected output:
