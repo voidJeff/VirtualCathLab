@@ -171,7 +171,7 @@ MIT.  See LICENSE.
   author    = {Bohan Jeff Li and Contributors},
   title     = {VirtualCathLab: SDF-based stent deployment utilities},
   year      = {2025},
-  howpublished = {\url{https://github.com/your‑org/virtualcathlab}}
+  howpublished = {\url{https://github.com/voidJeff/VirtualCathLab}}
 }
 
 
